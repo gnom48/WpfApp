@@ -20,4 +20,14 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void SearchButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void AddButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

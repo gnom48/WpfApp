@@ -7,31 +7,31 @@ public class OrderMap : ClassMap<Order>
 {
     public OrderMap()
     {
-        Table("Orders");
+        Table("orders");
 
         Id(x => x.Id)
-            .Column("Id")
+            .Column("id")
             .GeneratedBy.Identity();
 
         Map(x => x.Date)
-            .Column("Date")
+            .Column("date")
             .Not.Nullable()
             .Default("CURRENT_DATE");
 
         Map(x => x.Amount)
-            .Column("Amount")
+            .Column("amount")
             .Precision(18)
             .Scale(2)
             .Not.Nullable();
 
         References(x => x.Employee)
-            .Column("EmployeeId")
+            .Column("employee_id")
             .ForeignKey("FK_Order_Employee")
             .Not.Nullable()
             .LazyLoad(Laziness.Proxy);
 
         References(x => x.Counterparty)
-            .Column("CounterpartyId")
+            .Column("counterparty_id")
             .ForeignKey("FK_Order_Counterparty")
             .Not.Nullable()
             .LazyLoad(Laziness.Proxy);

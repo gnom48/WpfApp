@@ -19,4 +19,8 @@
     <ProjectReference Include="..\ClassLib\WpfApp.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
 </Project>

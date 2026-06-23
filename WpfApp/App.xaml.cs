@@ -37,7 +37,7 @@ public partial class App : Application
 
         try
         {
-            // Инициализация NHibernate
+            // Инициализация
             using (var scope = ServiceProvider.CreateScope())
             {
                 var sessionFactory = scope.ServiceProvider.GetRequiredService<ISessionFactory>();
@@ -47,7 +47,7 @@ public partial class App : Application
                 using (var session = sessionFactory.OpenSession())
                 {
                     var version = session.CreateSQLQuery("SELECT VERSION()").UniqueResult<string>();
-                    System.Diagnostics.Debug.WriteLine($"✅ Подключено к MySQL: {version}");
+                    System.Diagnostics.Debug.WriteLine(version);
                 }
             }
 
@@ -57,7 +57,7 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Ошибка инициализации приложения: {ex.Message}", "Ошибка",
+            MessageBox.Show($"Ошибка инициализации: {ex.Message}", "Ошибка",
                 MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown();
         }

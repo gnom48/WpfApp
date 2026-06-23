@@ -2,6 +2,6 @@
 
 public enum Position
 {
-    Manager,
-    Worker
+    Руководитель,
+    Работник
 }

@@ -7,29 +7,29 @@ public class CounterpartyMap : ClassMap<Counterparty>
 {
     public CounterpartyMap()
     {
-        Table("Counterparties");
+        Table("counterparties");
 
         Id(x => x.Id)
-            .Column("Id")
+            .Column("id")
             .GeneratedBy.Identity();
 
         Map(x => x.Name)
-            .Column("Name")
+            .Column("name")
             .Length(200)
             .Not.Nullable();
 
         Map(x => x.Inn)
-            .Column("INN")
+            .Column("inn")
             .Length(12)
             .Not.Nullable();
 
         References(x => x.Curator)
-            .Column("CuratorId")
+            .Column("curator_id")
             .ForeignKey("FK_Counterparty_Employee")
             .LazyLoad(Laziness.Proxy);
 
         HasMany(x => x.Orders)
-            .KeyColumn("CounterpartyId")
+            .KeyColumn("counterparty_id")
             .Inverse()
             .Cascade.AllDeleteOrphan()
             .LazyLoad()

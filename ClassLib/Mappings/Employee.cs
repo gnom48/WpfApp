@@ -7,28 +7,38 @@ namespace ClassLib
     {
         public EmployeeMap()
         {
-            Table("Employees");
+            Table("employees");
 
             Id(x => x.Id)
-                .Column("Id")
+                .Column("id")
                 .GeneratedBy.Identity();
 
-            Map(x => x.FullName)
-                .Column("FullName")
+            Map(x => x.FirstName)
+                .Column("first_name")
+                .Length(200)
+                .Not.Nullable();
+
+            Map(x => x.Surname)
+                .Column("surname")
+                .Length(200)
+                .Not.Nullable();
+
+            Map(x => x.LastName)
+                .Column("last_name")
                 .Length(200)
                 .Not.Nullable();
 
             Map(x => x.Position)
-                .Column("Position")
+                .Column("position")
                 .CustomType<Position>() 
                 .Not.Nullable();
 
             Map(x => x.BirthDate)
-                .Column("BirthDate")
+                .Column("birthdate")
                 .Not.Nullable();
 
             HasMany(x => x.Orders)
-                .KeyColumn("EmployeeId")
+                .KeyColumn("employee_id")
                 .Inverse() 
                 .Cascade.AllDeleteOrphan()
                 .LazyLoad()
