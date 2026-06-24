@@ -16,7 +16,7 @@ public class OrderMap : ClassMap<Order>
         Map(x => x.Date)
             .Column("date")
             .Not.Nullable()
-            .Default("CURRENT_DATE");
+            .Default("CURRENT_TIMESTAMP"); 
 
         Map(x => x.Amount)
             .Column("amount")

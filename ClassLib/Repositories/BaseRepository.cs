@@ -1,59 +1,60 @@
 ﻿using System.Linq.Expressions;
 using ClassLib.Repositories.Interfaces;
-using MySqlX.XDevAPI;
 using NHibernate;
 
 namespace ClassLib.Repositories;
 
 public class BaseRepository<T>(ISession session) : IRepository<T> where T : class
 {
+    public ISession Session { get; } = session;
+
     public virtual T GetById(int id)
     {
-        return session.Get<T>(id);
+        return Session.Get<T>(id);
     }
 
     public virtual IList<T> GetAll()
     {
-        return session.Query<T>().ToList();
+        return Session.Query<T>().ToList();
     }
 
     public virtual IList<T> Find(Expression<Func<T, bool>> predicate)
     {
-        return session.Query<T>().Where(predicate).ToList();
+        return Session.Query<T>().Where(predicate).ToList();
     }
 
     public virtual void Add(T entity)
     {
-        using (var transaction = session.BeginTransaction())
+        using (var transaction = Session.BeginTransaction())
         {
-            session.Save(entity);
+            Session.Save(entity);
             transaction.Commit();
         }
     }
 
     public virtual void Update(T entity)
     {
-        using (var transaction = session.BeginTransaction())
+        using (var transaction = Session.BeginTransaction())
         {
-            session.Update(entity);
+            Session.Update(entity);
             transaction.Commit();
         }
     }
 
     public virtual void Delete(T entity)
     {
-        using (var transaction = session.BeginTransaction())
+        using (var transaction = Session.BeginTransaction())
         {
-            session.Delete(entity);
+            Session.Delete(entity);
             transaction.Commit();
         }
     }
 
     public virtual void SaveOrUpdate(T entity)
     {
-        using (var transaction = session.BeginTransaction())
+        using (var transaction = Session.BeginTransaction())
         {
-            session.SaveOrUpdate(entity);
+            Session.SaveOrUpdate(entity);
             transaction.Commit();
         }
     }

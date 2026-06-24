@@ -11,19 +11,26 @@ namespace WpfApp.Data;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddDataServices(this IServiceCollection services)
     {
         services.AddSingleton<NHibernateConfig>();
+
+        services.AddSingleton<ISessionFactory>(provider =>
+        {
+            var config = provider.GetRequiredService<NHibernateConfig>();
+            return config.CreateSessionFactory();
+        });
+
+        services.AddScoped<ISession>(provider =>
+        {
+            var factory = provider.GetRequiredService<ISessionFactory>();
+            return factory.OpenSession();
+        });
 
         services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
         services.AddScoped<IOrderService, OrderService>();
-
-        services.AddScoped<ISession>(provider =>
-        {
-            return NHibernateHelper.OpenSession();
-        });
 
         return services;
     }

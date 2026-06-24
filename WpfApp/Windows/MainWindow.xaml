@@ -18,15 +18,36 @@
 
         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1">
             <TextBlock Text="Id сущности:"/>
-            <TextBox  Name="IdTextBox"/>
+            <TextBox  Name="IdTextBox" Text="{Binding SearchIdText}"/>
             <Button Name="SearchButton" Click="SearchButton_Click" Content="Найти"/>
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            
+            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <DataGrid 
+                  Name="ItemsDataGrid"
+                  ItemsSource="{Binding Items}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  Margin="5"
+                  RowHeight="30">
+                    <DataGrid.Columns>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+
             <StackPanel HorizontalAlignment="Left">
                 <Button Name="AddButton" Click="AddButton_Click" Content="Добавить" Width="200"/>
             </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0">
+            <ComboBox Name="EntitiesComboBox" SelectionChanged="EntitiesComboBox_SelectionChanged"
+                      ItemsSource="{Binding EntityTypes.Keys}" DisplayMemberPath="."/>
         </StackPanel>
 
     </Grid>

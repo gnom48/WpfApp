@@ -1,18 +1,17 @@
 services:
   mysql:
-    image: mysql:8.0
-    container_name: mysql_db
-    restart: always
+    image: mysql:5.7
+    container_name: mysql-container
     environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: database
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql_data:/var/lib/mysql
-
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
 
 volumes:
-  mysql_data:
+  mysql-data:

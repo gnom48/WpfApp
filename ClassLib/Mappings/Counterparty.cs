@@ -15,8 +15,7 @@ public class CounterpartyMap : ClassMap<Counterparty>
 
         Map(x => x.Name)
             .Column("name")
-            .Length(200)
-            .Not.Nullable();
+            .Not.Nullable().CustomSqlType("VARCHAR(200) CHARACTER SET utf8mb4"); ;
 
         Map(x => x.Inn)
             .Column("inn")

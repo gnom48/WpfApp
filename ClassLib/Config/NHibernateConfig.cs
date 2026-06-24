@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Cfg;
+﻿using System.Reflection;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
@@ -23,15 +24,20 @@ public class NHibernateConfig
                 .ShowSql() 
                 .FormatSql()
             )
-            .Mappings(m => m
-                .FluentMappings.AddFromAssemblyOf<EmployeeMap>()
+            .Mappings(m =>
+                m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly())
             )
             .ExposeConfiguration(cfg =>
             {
-                var schemaUpdate = new SchemaUpdate(cfg);
-                schemaUpdate.Execute(false, true);
+                // в демонстрационных целях!!!
+                var schemaExport = new SchemaExport(cfg);
+                schemaExport.Drop(false, true); 
+                schemaExport.Create(false, true);
+                // а так
+                //var schemaUpdate = new SchemaUpdate(cfg);
+                //schemaUpdate.Execute(false, true);
 
-                cfg.SetProperty("hibernate.dialect", "NHibernate.Dialect.MySQL8Dialect");
+                cfg.SetProperty("hibernate.dialect", "NHibernate.Dialect.MySQL5Dialect");
                 cfg.SetProperty("hibernate.connection.driver_class", "NHibernate.Driver.MySqlDataDriver");
                 cfg.SetProperty("hibernate.id.new_generator_mappings", "true");
             })

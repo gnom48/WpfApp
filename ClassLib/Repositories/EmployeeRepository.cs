@@ -10,14 +10,8 @@ public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
 
     public IList<Employee> GetManagers()
     {
-        return _session.Query<Employee>()
-            .Where(e => e.Position == Position.Manager)
+        return Session.Query<Employee>()
+            .Where(e => e.Position == Position.Руководитель)
             .ToList();
-    }
-
-    public Employee GetByFullName(string fullName)
-    {
-        return _session.Query<Employee>()
-            .FirstOrDefault(e => e.FullName == fullName);
     }
 }

@@ -8,7 +8,6 @@ namespace ClassLib.Config;
 public static class NHibernateHelper
 {
     private static ISessionFactory _sessionFactory;
-    private static readonly object _lockObj = new object();
 
     public static void Initialize(ISessionFactory sessionFactory)
     {
